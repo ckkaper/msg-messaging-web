@@ -20,9 +20,17 @@ List how to use this specific repo.
 - How to run docker
 - How to add the controller
 
+
+
 ## Add used npm packages and technologies, also explain the benefits of each of them.
 
-[Nodemon](https://www.npmjs.com/package/nodemon) automatically restarts the application after changes inside the tracked files are detected during development
+
+
+[Nodemon](https://www.npmjs.com/package/nodemon) automatically restarts the application after changes inside the tracked files are detected during 
+development
+
+[dotenv](https://www.npmjs.com/package/dotenv)  Easily read environmental variables from `.env` file
+
 
 
 ## License 
