@@ -31,6 +31,8 @@ development
 
 [dotenv](https://www.npmjs.com/package/dotenv)  Easily read environmental variables from `.env` file
 
+[mockaroo](https://www.mockaroo.com/) Generate mock data for a specified format
+
 
 
 ## License 
