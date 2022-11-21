@@ -1,6 +1,6 @@
 import Entity from "./Entities/entity";
 import IRepositoryStrategy from "./interfaces/IRepositoryStrategy";
-import * as fs from 'fs';
+import * as utils from './utils/fileReaderWrapper';
 
 class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
 
@@ -14,9 +14,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
      */
     constructor(filePath: string) {
             this.filePath = filePath;
-            const rawData = fs.readFileSync(this.filePath);
-            console.log(rawData);
-            this.fileJsonData = JSON.parse(rawData.toString());
+            this.fileJsonData = utils.readJsonFromFile(this.filePath);
     }
 
     /**
@@ -25,7 +23,6 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
      * @returns {boolean} result of the operation 
      */
     public add(entity: T): boolean {
-
         this.fileJsonData.push(entity);
         return this.updateFile();
     }
@@ -36,8 +33,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
      */
     public list(): Array<T> {
         try {
-            this.fileJsonData.toString();
-            return JSON.parse(this.fileJsonData.toString());
+            return this.fileJsonData;
         } catch(err)  {
             console.log('internal server error');         
             throw new Error('Unable to enumerate users');
@@ -66,8 +62,9 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
     public remove(id: string): boolean {
         try {
             const index = this.fileJsonData.findIndex((entity: T) => entity.id = id);
+            console.log('index ' + index);
             this.fileJsonData.splice(index, 1);
-            this.updateFile();
+            console.log(this.fileJsonData);
             return this.updateFile()
         } catch (err) {
             console.log('Unable to remove entity ')
@@ -99,7 +96,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
      */
     private updateFile(): boolean {
         try {
-            fs.writeFileSync(this.filePath, this.fileJsonData.toString());
+            utils.writeFile(this.filePath, this.fileJsonData.toString());
             return true;
         } catch (err) {
             console.log(err);
