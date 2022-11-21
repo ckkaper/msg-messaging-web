@@ -1,4 +1,3 @@
-import Entity from "../Entities/entity";
 
 interface IRepositoryStrategy<T> {
 

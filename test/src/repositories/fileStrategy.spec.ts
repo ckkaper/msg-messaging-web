@@ -4,28 +4,32 @@ import { FileStrategy }  from '../../../src/repositories/fileStrategy';
 import * as utils from '../../../src/repositories/utils/fileReaderWrapper';
 import { assert } from 'chai';
 
-
 interface IEntity {
     id: string
+}
+
+interface ITestEntity extends IEntity {
+    testProperty: string
 }
 
 describe('fileStrategy tests', () => {
 
 
+
     it('constructor should read data file', () => {
         var stub = sinon.stub(utils, 'readJsonFromFile').callsFake(() => {
+            const fileData = [{id: "someId", testProperty: "someTest"}];
+            return JSON.parse(JSON.stringify(fileData));
         });
 
         new FileStrategy('somePath');
 
         assert(stub.calledOnce)        
+
         stub.restore();
     });
     
     it('should add entity', () => {
-        interface ITestEntity extends IEntity {
-            testProperty: string
-        }
 
         var readFileStub = sinon.stub(utils, 'readJsonFromFile').callsFake(() => {
             const fileData: ITestEntity[] = [{id: "someId", testProperty: "someTest"}];
@@ -56,9 +60,6 @@ describe('fileStrategy tests', () => {
     });
     
     it('should remove entity', () => {
-        interface ITestEntity extends IEntity {
-            testProperty: string
-        }
 
         var readFileStub = sinon.stub(utils, 'readJsonFromFile').callsFake(() => {
             const fileData: ITestEntity[] = [{id: 'someId', testProperty: 'someTest'}];
@@ -84,9 +85,6 @@ describe('fileStrategy tests', () => {
     });
 
     it('should remove entity', () => {
-        interface ITestEntity extends IEntity {
-            testProperty: string
-        }
 
         var readFileStub = sinon.stub(utils, 'readJsonFromFile').callsFake(() => {
             const fileData: ITestEntity[] = [{id: 'someId', testProperty: 'someTest'}];
@@ -106,9 +104,6 @@ describe('fileStrategy tests', () => {
     });
 
     it('should update entity', () => {
-        interface ITestEntity extends IEntity {
-            testProperty: string
-        }
 
         var readFileStub = sinon.stub(utils, 'readJsonFromFile').callsFake(() => {
             const fileData: ITestEntity[] = [{id: 'someId', testProperty: 'someTest'}];
@@ -138,9 +133,6 @@ describe('fileStrategy tests', () => {
     });
 
     it('should retrieve all available entities', () => {
-        interface ITestEntity extends IEntity {
-            testProperty: string
-        }
 
         var readFileStub = sinon.stub(utils, 'readJsonFromFile').callsFake(() => {
             const fileData: ITestEntity[] = [

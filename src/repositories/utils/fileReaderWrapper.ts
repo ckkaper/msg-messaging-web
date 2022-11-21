@@ -5,11 +5,7 @@ export function readFile(filePath: string): string {
 }
 
 export function readJsonFromFile(filePath: string)  {
-    const r = JSON.parse(readFile(filePath)).toJson();
-    console.log('readJsonFile');
-    console.log(r);
-    console.log(typeof(r));
-    return r 
+    return JSON.parse(readFile(filePath)).toJson();
 }
 
 export function writeFile(filePath: string, data: string): void {

@@ -1,5 +1,3 @@
-import { randomUUID } from "crypto";
-import Entity from "./entity";
 
 class userEntity {
 
