@@ -1,14 +1,24 @@
-import { Type } from "typescript";
+import { basename } from "path";
+import IEntity from "./Entities/entity";
+import IUserEntity from "./Entities/userEntity";
+import IRepositoryStrategy from "./interfaces/IRepositoryStrategy";
+import Repository from "./repository";
 
-class usersRpository {
+type UserEntityType = IUserEntity & IEntity;
 
-    private strategy: Type;
+class UsersRpository<UserEntityType> extends Repository<UserEntityType> {
 
-    constructor(strategy: Type) {
-        this.strategy = strategy;
+    constructor(strategy: IRepositoryStrategy<UserEntityType>) {
+        super(strategy);
     }
 
-    private getUserList() {
-        this.strategy
+    public getUserList() {
+        return this.strategy.list();
+    }
+    
+    public getUser(id: string) {
+        return this.strategy.get(id);
     }
 }
+
+export default UsersRpository<UserEntityType>

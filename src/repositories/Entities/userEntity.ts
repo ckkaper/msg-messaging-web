@@ -1,17 +1,10 @@
+import IEntity from "./entity";
 
-class userEntity {
-
-    id: string;
+interface IUserEntity extends IEntity{
 
     firstName: string;
 
     lastName: string;
-
-    constructor(firstName: string, lastName: string) {
-        this.id = Math.floor(Math.random() * 10).toString();
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 }
 
-export default userEntity;
+export default IUserEntity;
