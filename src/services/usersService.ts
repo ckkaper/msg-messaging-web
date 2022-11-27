@@ -1,4 +1,3 @@
-import IEntity from "../repositories/Entities/entity";
 import IUserEntity from "../repositories/Entities/userEntity";
 import { FileStrategy } from "../repositories/fileStrategy";
 import IRepositoryStrategy from "../repositories/interfaces/IRepositoryStrategy";
