@@ -1,6 +1,7 @@
 import Entity from './Entities/entity';
 import IRepositoryStrategy from './interfaces/IRepositoryStrategy';
 import * as utils from './utils/fileReaderWrapper';
+import { logger } from '../config/logger';
 
 class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
   private filePath: string;
@@ -34,7 +35,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
     try {
       return this.fileJsonData;
     } catch (err) {
-      console.log('internal server error');
+      logger.error('internal server error');
       throw new Error('Unable to enumerate users');
     }
   }
@@ -48,7 +49,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
     try {
       return this.fileJsonData.find((entity: T) => entity.id == id);
     } catch (err) {
-      console.log('Failed to get entity');
+      logger.error('Failed to get entity');
       throw new Error('Unable to get entity');
     }
   }
@@ -63,12 +64,10 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
       const index = this.fileJsonData.findIndex(
         (entity: T) => (entity.id = id)
       );
-      console.log('index ' + index);
       this.fileJsonData.splice(index, 1);
-      console.log(this.fileJsonData);
       return this.updateFile();
     } catch (err) {
-      console.log('Unable to remove entity ');
+      logger.error('Unable to remove entity ');
       throw new Error('unable to remove entity');
     }
   }
@@ -102,7 +101,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
       utils.writeFile(this.filePath, this.fileJsonData.toString());
       return true;
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       throw new Error('Unable to replace file:' + err);
     }
   }

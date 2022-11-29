@@ -2,6 +2,7 @@ import IUserEntity from '../repositories/Entities/userEntity';
 import { FileStrategy } from '../repositories/fileStrategy';
 import IRepositoryStrategy from '../repositories/interfaces/IRepositoryStrategy';
 import UsersRepository from '../repositories/usersRepository';
+import { logger } from '../config/logger';
 
 class UsersService {
   private repository: any;
@@ -18,12 +19,12 @@ class UsersService {
   }
 
   public getUser(id: string): IUserEntity {
-    console.log(`getting user: ${id}`);
+    logger.info(`getting user: ${id}`);
     return this.repository.getUser(id);
   }
 
   public getAllUsers(): Array<IUserEntity> {
-    console.log('getting users...');
+    logger.info(`getting all users`);
     return this.repository.list();
   }
 }
