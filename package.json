@@ -8,7 +8,7 @@
     "build": "npx tsc --project ./",
     "start": "npx tsc --project ./ && nodemon src/app.ts",
     "lint": "eslint . --ext .ts",
-    "prettier-format": "prettier --config .prettierrc \"src/**/*.ts\" --write"
+    "format": "prettier --config .prettierrc \"src/**/*.ts\" --write"
   },
   "author": "ckkaperonis@gmail.com",
   "license": "ISC",
