@@ -2,7 +2,7 @@ import Entity from '../Entities/entity';
 import IRepositoryStrategy from '../interfaces/IRepositoryStrategy';
 import * as utils from '../utils/fileReaderWrapper';
 import { logger } from '../../config/logger';
-import { InternalServerErrorApiError } from 'utils/apiError';
+import { InternalServerErrorApiError } from '../../utils/apiError';
 
 class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
     private filePath: string;
@@ -108,7 +108,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
             return true;
         } catch (err) {
             logger.error('Unable to replace file');
-            throw new Error('Unable to replace file:' + err);
+            throw new InternalServerErrorApiError('Unable to remove user');
         }
     }
 }

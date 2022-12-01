@@ -4,7 +4,7 @@
   "description": "A skeleton backend microservice based in ExpressJs framework containing boilerplate code for a microservice platform projects",
   "main": "build/src/app.js",
   "scripts": {
-    "test": "npx tsc --project tsconfig.tests.json && mocha ./build/test/src/**/*.spec.js",
+    "test": "npx tsc --project tsconfig.tests.json && mocha ./dist/test/src/**/*.spec.js",
     "build": "npx tsc --project ./",
     "start": "npx tsc --project ./ && nodemon src/app.ts",
     "lint": "eslint . --ext .ts",

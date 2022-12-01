@@ -3,6 +3,7 @@ import * as sinon from 'sinon';
 import { FileStrategy }  from '../../../src/repositories/strategies/fileStrategy';
 import * as utils from '../../../src/repositories/utils/fileReaderWrapper';
 import { assert } from 'chai';
+import { read, readFile, write, writeFile } from 'fs';
 
 interface IEntity {
     id: string
@@ -22,6 +23,7 @@ describe('fileStrategy tests', () => {
 
     var readFileJsonSandbox = sinon.createSandbox();
     var WriteFileSandbox = sinon.createSandbox();
+
     beforeEach(() => {
         readFileJsonSandbox.stub(utils, 'readJsonFromFile')
             .callsFake(() => [
@@ -32,8 +34,9 @@ describe('fileStrategy tests', () => {
     });
     
     afterEach(() => {
-        readFileJsonSandbox.restore();
-        WriteFileSandbox.restore();
+        //readFileJsonSandbox.restore();
+        sinon.restore()
+        //WriteFileSandbox.restore();
     })
     
 
@@ -115,4 +118,20 @@ describe('fileStrategy tests', () => {
 
         readFileJsonSandbox.assert.calledOnce(utils.readJsonFromFile as any);
     });
+
+    describe('Negative tests: fileStrategy constructor tests', () => {
+
+        readFileJsonSandbox.stub(utils, 'readJsonFromFile').throws();
+
+        afterEach(() => {
+            readFileJsonSandbox.restore();
+        })
+
+        it('should throw when trying to read all available entities', () => {
+
+            assert.throws(() => {
+                new FileStrategy<ITestEntity>('somePath');
+            });
+        })
+    })
 });

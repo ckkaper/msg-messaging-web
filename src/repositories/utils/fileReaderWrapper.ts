@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-export function readFile(filePath: string): any {
+function readFile(filePath: string): any {
     return fs.readFileSync(filePath);
 }
 
