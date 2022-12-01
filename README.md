@@ -1,5 +1,5 @@
 # Skeleton Service
-TODO: A small description about the purpose of this repository
+TODO: boilerplate repo to seamlesly and easily create new microservices.
 
 ## Description 
 - What the project contains
@@ -27,12 +27,19 @@ List how to use this specific repo.
 
 
 [Nodemon](https://www.npmjs.com/package/nodemon) automatically restarts the application after changes inside the tracked files are detected during 
-development
+development.
 
-[dotenv](https://www.npmjs.com/package/dotenv)  Easily read environmental variables from `.env` file
+[dotenv](https://www.npmjs.com/package/dotenv)  Easily read environmental variables from `.env` file.
 
-[mockaroo](https://www.mockaroo.com/) Generate mock data for a specified format
+[mockaroo](https://www.mockaroo.com/) Generate mock data for a specified format.
 
+[chai](https://www.npmjs.com/package/chai) Easy to use and readable assertions for UTs.
+
+[mocha](https://www.npmjs.com/package/mocha) Provides basic test suite javascript functionality.
+
+[sinon](https://www.npmjs.com/package/sinon) Framework to mock and stub dependent methods for UTs.
+
+[winston](https://www.npmjs.com/package/winston)
 
 
 ## License 
