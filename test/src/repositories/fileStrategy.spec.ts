@@ -34,11 +34,9 @@ describe('fileStrategy tests', () => {
     });
     
     afterEach(() => {
-        //readFileJsonSandbox.restore();
-        sinon.restore()
-        //WriteFileSandbox.restore();
-    })
-    
+        readFileJsonSandbox.restore();
+        WriteFileSandbox.restore();
+    });
 
     it('constructor should read data file', () => {
 
@@ -119,9 +117,13 @@ describe('fileStrategy tests', () => {
         readFileJsonSandbox.assert.calledOnce(utils.readJsonFromFile as any);
     });
 
-    describe('Negative tests: fileStrategy constructor tests', () => {
+});
 
-        readFileJsonSandbox.stub(utils, 'readJsonFromFile').throws();
+    describe('Negative tests: fileStrategy constructor tests', () => {
+        let readFileJsonSandbox = sinon.createSandbox();
+        beforeEach(() => {
+            readFileJsonSandbox.stub(utils, 'readJsonFromFile').throws();
+        });
 
         afterEach(() => {
             readFileJsonSandbox.restore();
@@ -134,4 +136,3 @@ describe('fileStrategy tests', () => {
             });
         })
     })
-});
