@@ -1,7 +1,8 @@
-import Entity from './Entities/entity';
-import IRepositoryStrategy from './interfaces/IRepositoryStrategy';
-import * as utils from './utils/fileReaderWrapper';
-import { logger } from '../config/logger';
+import Entity from '../Entities/entity';
+import IRepositoryStrategy from '../interfaces/IRepositoryStrategy';
+import * as utils from '../utils/fileReaderWrapper';
+import { logger } from '../../config/logger';
+import { InternalServerErrorApiError } from 'utils/apiError';
 
 class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
   private filePath: string;
@@ -23,8 +24,13 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
    * @returns {boolean} result of the operation
    */
   public add(entity: T): boolean {
-    this.fileJsonData.push(entity);
-    return this.updateFile();
+    try {
+        this.fileJsonData.push(entity);
+        return this.updateFile();
+    } catch (err) {
+        logger.error('Unable to add user');
+        throw new InternalServerErrorApiError('Unable to add user');
+    }
   }
 
   /**
@@ -36,7 +42,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
       return this.fileJsonData;
     } catch (err) {
       logger.error('internal server error');
-      throw new Error('Unable to enumerate users');
+      throw new InternalServerErrorApiError('Unable to enumerate users');
     }
   }
 
@@ -50,7 +56,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
       return this.fileJsonData.find((entity: T) => entity.id == id);
     } catch (err) {
       logger.error('Failed to get entity');
-      throw new Error('Unable to get entity');
+      throw new InternalServerErrorApiError('Unable to find user');
     }
   }
 
@@ -67,8 +73,8 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
       this.fileJsonData.splice(index, 1);
       return this.updateFile();
     } catch (err) {
-      logger.error('Unable to remove entity ');
-      throw new Error('unable to remove entity');
+      logger.error('Unable to remove user');
+      throw new InternalServerErrorApiError('Unable to remove user');
     }
   }
 
@@ -101,7 +107,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
       utils.writeFile(this.filePath, this.fileJsonData.toString());
       return true;
     } catch (err) {
-      logger.error(err);
+      logger.error('Unable to replace file');
       throw new Error('Unable to replace file:' + err);
     }
   }

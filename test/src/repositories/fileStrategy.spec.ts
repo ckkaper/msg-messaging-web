@@ -1,6 +1,6 @@
 
 import * as sinon from 'sinon';
-import { FileStrategy }  from '../../../src/repositories/fileStrategy';
+import { FileStrategy }  from '../../../src/repositories/strategies/fileStrategy';
 import * as utils from '../../../src/repositories/utils/fileReaderWrapper';
 import { assert } from 'chai';
 

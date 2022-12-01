@@ -1,5 +1,5 @@
 import IUserEntity from '../repositories/Entities/userEntity';
-import { FileStrategy } from '../repositories/fileStrategy';
+import { FileStrategy } from '../repositories/strategies/fileStrategy';
 import IRepositoryStrategy from '../repositories/interfaces/IRepositoryStrategy';
 import UsersRepository from '../repositories/usersRepository';
 import { logger } from '../config/logger';
