@@ -1,13 +1,13 @@
 interface IRepositoryStrategy<T> {
-  add(entity: T): boolean;
+    add(entity: T): boolean;
 
-  list(): Array<T>;
+    list(): Array<T>;
 
-  get(id: string): T;
+    get(id: string): T;
 
-  update(entity: T): T;
+    update(entity: T): T;
 
-  remove(id: string): boolean;
+    remove(id: string): boolean;
 }
 
 export default IRepositoryStrategy;
