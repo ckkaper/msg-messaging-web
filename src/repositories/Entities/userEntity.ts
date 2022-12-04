@@ -1,9 +1,9 @@
-import IEntity from './entity';
+import IEntity from "./entity";
 
 interface IUserEntity extends IEntity {
-    firstName: string;
+        firstName: string;
 
-    lastName: string;
+        lastName: string;
 }
 
 export default IUserEntity;
