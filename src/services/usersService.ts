@@ -6,6 +6,7 @@ import {
         UserEntityType,
 } from "../repositories/usersRepository";
 import { logger } from "../config/logger";
+import path from "path";
 
 class UsersService {
         private repository: UsersRepository<UserEntityType>;
@@ -16,7 +17,10 @@ class UsersService {
                 this.repositoryStrategy = strategy
                         ? strategy
                         : new FileStrategy(
-                                  "C:\\dev\\messaging-app\\skeleton-svc\\src\\repositories\\mock_data.json"
+                                  path.join(
+                                          __dirname,
+                                          "../repositories/mock_data.json"
+                                  )
                           );
                 this.repository = new UsersRepository(this.repositoryStrategy);
         }
