@@ -37,7 +37,9 @@ development.
 
 [mocha](https://www.npmjs.com/package/mocha) Provides basic test suite javascript functionality.
 
-[sinon](https://www.npmjs.com/package/sinon) Framework to mock and stub dependent methods for UTs.
+[nyc](https://www.npmjs.com/package/nyc) Tool to generate coverage reports for Javascript/Typescript..
+
+[mocha](https://www.npmjs.com/package/mocha) Provides basic test suite javascript functionality.
 
 [winston](https://www.npmjs.com/package/winston) famous logging library providing json formated logs
 

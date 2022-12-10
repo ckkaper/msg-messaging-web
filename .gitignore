@@ -1,4 +1,6 @@
 node_modules
+coverage
 build
 *.spec.js
 dist
+.nyc_output
