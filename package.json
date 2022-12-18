@@ -6,8 +6,10 @@
         "scripts": {
                 "test": "mocha -r ts-node/register ./test/src/**/**/*.spec.ts",
                 "test:coverage": "nyc mocha -r ts-node/register ./test/src/**/**/*.spec.ts",
-                "build": "npx tsc --project ./",
-                "start": "npx tsc --project ./ && nodemon src/app.ts",
+                "build": "tsc --project ./",
+                "install": "npm i",
+                "start": "npx tsc --project ./ && node  ./dist/src/app.js",
+                "start:debug": "npx tsc --project ./ && node --inspect ./dist/src/app.js",
                 "lint": "npx eslint .",
                 "format": "npx prettier --write ."
         },

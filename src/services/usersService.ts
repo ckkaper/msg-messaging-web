@@ -1,5 +1,6 @@
 import IUserEntity from "../repositories/Entities/userEntity";
 import { FileStrategy } from "../repositories/strategies/fileStrategy";
+import  { config } from '../config/config';
 import IRepositoryStrategy from "../repositories/interfaces/IRepositoryStrategy";
 import {
         UsersRepository,
@@ -16,12 +17,7 @@ class UsersService {
         constructor(strategy?: IRepositoryStrategy<IUserEntity>) {
                 this.repositoryStrategy = strategy
                         ? strategy
-                        : new FileStrategy(
-                                  path.join(
-                                          __dirname,
-                                          "../repositories/mock_data.json"
-                                  )
-                          );
+                        : new FileStrategy(config.dev.mock_data_path);                        
                 this.repository = new UsersRepository(this.repositoryStrategy);
         }
 
