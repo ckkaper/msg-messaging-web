@@ -1,8 +1,8 @@
 # Skeleton Service
 
-TODO: boilerplate repo to seamlesly and easily create new microservices.
+## Summary
 
-## Description
+A skeleton microservice part of a bigger microservices platform aiming to seamlesly and easly generate new services focused on business logic.
 
 - What the project contains
 - How is structured
@@ -10,9 +10,30 @@ TODO: boilerplate repo to seamlesly and easily create new microservices.
 - What features it supports
 - name some of the design patterns used
 
-## Installation
+## Prerequisites
 
-TODO:
+### Running locally
+
+- NodeJs `v14.16.0`
+- npm `v6.14.17`
+
+### Running on a container
+
+- Have Docker installed
+
+
+## Installation 
+
+Instructions to get ready for the project installation
+
+### Running locally 
+
+`npm i`
+
+`npm run start`
+
+### Running inside a container
+
 
 ## TODO: How to Use
 
@@ -43,4 +64,3 @@ development.
 
 [winston](https://www.npmjs.com/package/winston) famous logging library providing json formated logs
 
-## License

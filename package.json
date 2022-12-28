@@ -33,6 +33,7 @@
                 "eslint": "^8.29.0",
                 "eslint-config-prettier": "^8.5.0",
                 "mocha": "^10.1.0",
+                "npx": "^10.2.2",
                 "nodemon": "^2.0.20",
                 "nyc": "^15.1.0",
                 "prettier": "2.8.0",
