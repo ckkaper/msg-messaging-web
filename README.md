@@ -34,6 +34,11 @@ Instructions to get ready for the project installation
 
 ### Running inside a container
 
+```
+docker build -t skeleton-svc .
+
+docker run -p 127.0.0.1:3000:3000 skeleton-svc
+```
 
 ## TODO: How to Use
 
