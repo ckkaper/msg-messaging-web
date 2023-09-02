@@ -8,7 +8,7 @@
                 "test:coverage": "nyc mocha -r ts-node/register ./test/src/**/**/*.spec.ts",
                 "build": "tsc --project ./ && cp ./src/repositories/mock_data.json ./dist/src/repositories",
                 "start": "npx tsc --project ./ && node  ./dist/src/app.js",
-                "start-nodemon": "nodemon ./src/app.ts",
+                "start:nodemon": "nodemon ./src/app.ts",
                 "start:debug": "npx tsc --project ./ && node --inspect ./dist/src/app.js",
                 "lint": "npx eslint .",
                 "format": "npx prettier --write ."
