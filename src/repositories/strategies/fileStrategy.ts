@@ -118,7 +118,7 @@ class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {
                 try {
                         utils.writeFile(
                                 this.filePath,
-                                this.fileJsonData.toString()
+                                JSON.stringify(this.fileJsonData)
                         );
                         return true;
                 } catch (err) {
