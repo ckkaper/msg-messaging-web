@@ -24,8 +24,14 @@ describe("fileStrategy tests", () => {
                 readFileJsonSandbox
                         .stub(utils, "readJsonFromFile")
                         .callsFake(() => [
-                                { id: "1", testProperty: "someTest" },
-                                { id: "2", testProperty: "someTest2" },
+                                {
+                                        id: "1",
+                                        testProperty: "someTest",
+                                },
+                                {
+                                        id: "2",
+                                        testProperty: "someTest2",
+                                },
                         ]);
                 WriteFileSandbox.stub(utils, "writeFile");
         });

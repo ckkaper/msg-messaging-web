@@ -1,5 +1,5 @@
 {
-        "name": "skeleton-svc",
+        "name": "messaging-web",
         "version": "1.0.0",
         "description": "A skeleton backend microservice based in ExpressJs framework containing boilerplate code for a microservice platform projects",
         "main": "build/src/app.js",
