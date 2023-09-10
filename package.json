@@ -10,8 +10,7 @@
                 "start": "npx tsc --project ./ && node  ./dist/src/app.js",
                 "start:ts": "ts-node ./src/app.ts",
                 "start:nodemon": "nodemon ./src/app.ts",
-                "start:debug": "npx tsc --project ./ && node --inspect ./dist/src/app.js",
-                "lint": "npx eslint .",
+                
                 "format": "npx prettier --write ."
         },
         "author": "ckkaperonis@gmail.com",
