@@ -1,62 +1,68 @@
 {
-        "name": "messaging-web",
-        "version": "1.0.0",
-        "description": "A skeleton backend microservice based in ExpressJs framework containing boilerplate code for a microservice platform projects",
-        "main": "build/src/app.js",
-        "scripts": {
-                "test": "mocha -r ts-node/register ./test/src/**/**/*.spec.ts",
-                "test:coverage": "nyc mocha -r ts-node/register ./test/src/**/**/*.spec.ts",
-                "build": "tsc --project ./ && cp ./src/repositories/mock_data.json ./dist/src/repositories",
-                "start": "npx tsc --project ./ && node  ./dist/src/app.js",
-                "start:ts": "ts-node ./src/app.ts",
-                "start:nodemon": "nodemon ./src/app.ts",
-                
-                "format": "npx prettier --write ."
+    "name": "messaging-web",
+    "version": "1.0.0",
+    "description": "A skeleton backend microservice based in ExpressJs framework containing boilerplate code for a microservice platform projects",
+    "main": "build/src/app.js",
+    "scripts": {
+        "test": "mocha -r ts-node/register ./test/src/**/**/*.spec.ts",
+        "test:coverage": "nyc mocha -r ts-node/register ./test/src/**/**/*.spec.ts",
+        "build": "tsc --project ./ && cp ./src/repositories/mock_data.json ./dist/src/repositories",
+        "start": "npx tsc --project ./ && node  ./dist/src/app.js",
+        "start:ts": "ts-node ./src/app.ts",
+        "start:nodemon": "nodemon ./src/app.ts",
+        "format": "npx prettier --write ."
+    },
+    "author": "ckkaperonis@gmail.com",
+    "license": "ISC",
+    "dependencies": {
+        "@types/jsonwebtoken": "^9.0.3",
+        "axios": "^1.5.0",
+        "cookie-parser": "^1.4.6",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "http-status-codes": "^2.2.0",
+        "jsonwebtoken": "^9.0.2",
+        "socket.io": "^4.7.1"
+    },
+    "devDependencies": {
+        "@istanbuljs/nyc-config-typescript": "^1.0.2",
+        "@types/chai": "^4.3.4",
+        "@types/cookie-parser": "^1.4.4",
+        "@types/cors": "^2.8.14",
+        "@types/express": "^4.17.14",
+        "@types/mocha": "^10.0.0",
+        "@types/node": "^14.18.33",
+        "@types/sinon": "^10.0.13",
+        "@typescript-eslint/eslint-plugin": "^5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "chai": "^4.3.7",
+        "eslint": "^8.29.0",
+        "eslint-config-prettier": "^8.5.0",
+        "mocha": "^10.1.0",
+        "nodemon": "^2.0.20",
+        "npx": "^10.2.2",
+        "nyc": "^15.1.0",
+        "prettier": "2.8.0",
+        "sinon": "^15.0.0",
+        "source-map-support": "^0.5.21",
+        "stylelint-config-prettier": "^9.0.4",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.9.3",
+        "winston": "^3.8.2"
+    },
+    "nodemonConfig": {
+        "ignore": [
+            "test/**",
+            "dist/**"
+        ],
+        "exec": "ts-node",
+        "extMap": {
+            "ts": "ts-node"
         },
-        "author": "ckkaperonis@gmail.com",
-        "license": "ISC",
-        "dependencies": {
-                "dotenv": "^16.0.3",
-                "express": "^4.18.2",
-                "http-status-codes": "^2.2.0",
-                "socket.io": "^4.7.1"
-        },
-        "devDependencies": {
-                "@istanbuljs/nyc-config-typescript": "^1.0.2",
-                "@types/chai": "^4.3.4",
-                "@types/express": "^4.17.14",
-                "@types/mocha": "^10.0.0",
-                "@types/node": "^14.18.33",
-                "@types/sinon": "^10.0.13",
-                "@typescript-eslint/eslint-plugin": "^5.45.0",
-                "@typescript-eslint/parser": "^5.45.0",
-                "chai": "^4.3.7",
-                "eslint": "^8.29.0",
-                "eslint-config-prettier": "^8.5.0",
-                "mocha": "^10.1.0",
-                "nodemon": "^2.0.20",
-                "npx": "^10.2.2",
-                "nyc": "^15.1.0",
-                "prettier": "2.8.0",
-                "sinon": "^15.0.0",
-                "source-map-support": "^0.5.21",
-                "stylelint-config-prettier": "^9.0.4",
-                "ts-node": "^10.9.1",
-                "typescript": "^4.9.3",
-                "winston": "^3.8.2"
-        },
-        "nodemonConfig": {
-                "ignore": [
-                        "test/**",
-                        "dist/**"
-                ],
-                "exec": "ts-node",
-                "extMap": {
-                        "ts": "ts-node"
-                },
-                "watch": [
-                        "src/**"
-                ],
-                "ext": "ts, json"
-        }
+        "watch": [
+            "src/**"
+        ],
+        "ext": "ts, json"
+    }
 }

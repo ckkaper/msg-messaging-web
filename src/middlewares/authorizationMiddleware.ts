@@ -1,30 +1,35 @@
 import { logger } from "../config/logger";
 import { Response, Request, NextFunction } from "express";
+import { config } from "../config/config";
 
 export const authorizationMiddleware = (
-        req: Request,
-        res: Response,
-        next: NextFunction
+    req: Request,
+    res: Response,
+    next: NextFunction
 ) => {
-        // check cookie
+    // check cookie
 
-        logger.info("entering authorization middleware");
+    logger.info("AUTHORIZATION MIDDLEWARE");
 
-        const sessionId = req.cookies?.sessionId;
+    const sessionId = req.cookies?.sessionId;
+    if (req.cookies != null) {
+        console.log("SessionId");
+        console.log(JSON.stringify(req.cookies));
+    }
 
-        if (sessionId == null) {
-                logger.info("checking if session is null");
-                // TODO: retrieve params clientId from config
-                // TODO: validate session id against the identity server
-                logger.info('redirecting to authorization server')
-                return res.redirect(
-                        "http://localhost:3001/authorize?" +
-                                "response_type=code&" +
-                                "client_id=OKg3URj8JWuYrgQDrk1QIzg==&" +
-                                "scope=openid email&" +
-                                "redirect_uri=http://localhost:3000"
-                );
-        }
+    logger.info("checking if session is null");
+    if (sessionId == null) {
+        // TODO: retrieve params clientId from config
+        // TODO: validate session id against the identity server
+        logger.info("redirecting to authorization server");
+        const redirect =
+            `http://localhost:${config.dev.identity_server_port}/authorize?` +
+            "response_type=code&" +
+            "client_id=OKg3URj8JWuYrgQDrk1QIzg==&" +
+            "scope=openid email&" +
+            `redirect_uri=http://localhost:${config.dev.port}`;
+        return res.redirect(redirect);
+    }
 
-        next();
+    next();
 };

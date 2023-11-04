@@ -7,117 +7,111 @@ import IRepositoryStrategy from "../../../src/repositories/interfaces/IRepositor
 import { InternalServerErrorApiError } from "../../../src/utils/apiError";
 
 const mockEntity = {
-        id: "someId",
-        firstName: "someFirstName",
-        lastName: "lastName",
+    id: "someId",
+    firstName: "someFirstName",
+    lastName: "lastName",
 };
 
 class MockStrategy implements IRepositoryStrategy<IUserEntity> {
-        constructor() {}
+    constructor() {}
 
-        list(): Array<IUserEntity> {
-                return [mockEntity];
-        }
+    list(): Array<IUserEntity> {
+        return [mockEntity];
+    }
 
-        add(entity: IUserEntity) {
-                return true;
-        }
+    add(entity: IUserEntity) {
+        return true;
+    }
 
-        remove(id: string) {
-                return true;
-        }
+    remove(id: string) {
+        return true;
+    }
 
-        update(entity: IUserEntity) {
-                return mockEntity;
-        }
+    update(entity: IUserEntity) {
+        return mockEntity;
+    }
 
-        get(id: string) {
-                return mockEntity;
-        }
+    get(id: string) {
+        return mockEntity;
+    }
 }
 
 describe("usersService tests", () => {
-        let mockStrategy: MockStrategy;
-        let mockStrategyStub = sinon.createSandbox();
+    let mockStrategy: MockStrategy;
+    let mockStrategyStub = sinon.createSandbox();
 
-        beforeEach(() => {
-                mockStrategy = new MockStrategy();
-                mockStrategyStub
-                        .stub(mockStrategy, "get")
-                        .callsFake((id: string) => {
-                                return mockEntity;
-                        });
-
-                mockStrategyStub.stub(mockStrategy, "add").callsFake(() => {
-                        return true;
-                });
+    beforeEach(() => {
+        mockStrategy = new MockStrategy();
+        mockStrategyStub.stub(mockStrategy, "get").callsFake((id: string) => {
+            return mockEntity;
         });
 
-        afterEach(() => {
-                mockStrategyStub.restore();
+        mockStrategyStub.stub(mockStrategy, "add").callsFake(() => {
+            return true;
         });
+    });
 
-        it("should instantiate usersService", () => {
-                new UsersService(mockStrategy);
-        });
+    afterEach(() => {
+        mockStrategyStub.restore();
+    });
 
-        it("shoult get single user", () => {
-                var usersService = new UsersService(mockStrategy);
+    it("should instantiate usersService", () => {
+        new UsersService(mockStrategy);
+    });
 
-                var result = usersService.getUser("someId");
+    it("shoult get single user", () => {
+        var usersService = new UsersService(mockStrategy);
 
-                assert.deepEqual(result, mockEntity);
-        });
+        var result = usersService.getUser("someId");
 
-        it("should get multiple users", () => {
-                var usersService = new UsersService(mockStrategy);
+        assert.deepEqual(result, mockEntity);
+    });
 
-                var result = usersService.getAllUsers();
+    it("should get multiple users", () => {
+        var usersService = new UsersService(mockStrategy);
 
-                assert.deepEqual(result, [mockEntity]);
-        });
+        var result = usersService.getAllUsers();
+
+        assert.deepEqual(result, [mockEntity]);
+    });
 });
 
 describe("Negative: usersService tests", () => {
-        let mockStrategy: MockStrategy;
-        let mockStrategyStub = sinon.createSandbox();
+    let mockStrategy: MockStrategy;
+    let mockStrategyStub = sinon.createSandbox();
 
-        beforeEach(() => {
-                mockStrategy = new MockStrategy();
-                mockStrategyStub
-                        .stub(mockStrategy, "get")
-                        .throwsException(
-                                new InternalServerErrorApiError(
-                                        "failed to get user"
-                                )
-                        );
+    beforeEach(() => {
+        mockStrategy = new MockStrategy();
+        mockStrategyStub
+            .stub(mockStrategy, "get")
+            .throwsException(
+                new InternalServerErrorApiError("failed to get user")
+            );
 
-                mockStrategyStub
-                        .stub(mockStrategy, "list")
-                        .throwsException(
-                                new InternalServerErrorApiError(
-                                        "failed to get list of users"
-                                )
-                        );
+        mockStrategyStub
+            .stub(mockStrategy, "list")
+            .throwsException(
+                new InternalServerErrorApiError("failed to get list of users")
+            );
+    });
+
+    afterEach(() => {
+        mockStrategyStub.restore();
+    });
+
+    it("should throw when trying to get single user", () => {
+        var usersService = new UsersService(mockStrategy);
+
+        assert.throws(() => {
+            usersService.getUser("someID");
         });
+    });
 
-        afterEach(() => {
-                mockStrategyStub.restore();
+    it("should throw when try to get multiple users", () => {
+        var usersService = new UsersService(mockStrategy);
+
+        assert.throws(() => {
+            usersService.getAllUsers();
         });
-
-        it("should throw when trying to get single user", () => {
-                var usersService = new UsersService(mockStrategy);
-
-                assert.throws(() => {
-                        usersService.getUser("someID");
-                });
-        });
-
-        it("should throw when try to get multiple users", () => {
-                var usersService = new UsersService(mockStrategy);
-
-                assert.throws(() => {
-                        usersService.getAllUsers();
-                });
-        });
+    });
 });

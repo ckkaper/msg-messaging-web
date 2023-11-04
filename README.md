@@ -4,22 +4,22 @@
 
 A skeleton microservice part of a bigger microservices platform aiming to seamlesly and easly generate new services focused on business logic.
 
-- What the project contains
-- How is structured
-- What does it do
-- What features it supports
-- name some of the design patterns used
+-   What the project contains
+-   How is structured
+-   What does it do
+-   What features it supports
+-   name some of the design patterns used
 
 ## Prerequisites
 
 ### Running locally
 
-- NodeJs `v14.16.0`
-- npm `v6.14.17`
+-   NodeJs `v14.16.0`
+-   npm `v6.14.17`
 
 ### Running on a container
 
-- Have Docker installed
+-   Have Docker installed
 
 ## Installation
 
@@ -51,11 +51,11 @@ docker run -p 127.0.0.1:3000:3000 skeleton-svc
 
 List how to use this specific repo.
 
-- How to add a new service
-- How to leverage the different design patterns ( repository, strategy )
-- How to use the config files
-- How to run docker
-- How to add the controller
+-   How to add a new service
+-   How to leverage the different design patterns ( repository, strategy )
+-   How to use the config files
+-   How to run docker
+-   How to add the controller
 
 ## Add used npm packages and technologies, also explain the benefits of each of them.
 

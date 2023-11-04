@@ -4,153 +4,141 @@ import * as utils from "../../../src/repositories/utils/fileReaderWrapper";
 import { assert } from "chai";
 
 interface IEntity {
-        id: string;
+    id: string;
 }
 
 interface ITestEntity extends IEntity {
-        testProperty: string;
+    testProperty: string;
 }
 
 const mockFileData = [
-        { id: "1", testProperty: "someTest" },
-        { id: "2", testProperty: "someTest2" },
+    { id: "1", testProperty: "someTest" },
+    { id: "2", testProperty: "someTest2" },
 ];
 
 describe("fileStrategy tests", () => {
-        const readFileJsonSandbox = sinon.createSandbox();
-        const WriteFileSandbox = sinon.createSandbox();
+    const readFileJsonSandbox = sinon.createSandbox();
+    const WriteFileSandbox = sinon.createSandbox();
 
-        beforeEach(() => {
-                readFileJsonSandbox
-                        .stub(utils, "readJsonFromFile")
-                        .callsFake(() => [
-                                {
-                                        id: "1",
-                                        testProperty: "someTest",
-                                },
-                                {
-                                        id: "2",
-                                        testProperty: "someTest2",
-                                },
-                        ]);
-                WriteFileSandbox.stub(utils, "writeFile");
+    beforeEach(() => {
+        readFileJsonSandbox.stub(utils, "readJsonFromFile").callsFake(() => [
+            {
+                id: "1",
+                testProperty: "someTest",
+            },
+            {
+                id: "2",
+                testProperty: "someTest2",
+            },
+        ]);
+        WriteFileSandbox.stub(utils, "writeFile");
+    });
+
+    afterEach(() => {
+        readFileJsonSandbox.restore();
+        WriteFileSandbox.restore();
+    });
+
+    it("constructor should read data file", () => {
+        new FileStrategy("somePath");
+
+        readFileJsonSandbox.assert.calledOnce(utils.readJsonFromFile as any);
+    });
+
+    it("should add entity", () => {
+        const fileStrategy = new FileStrategy<ITestEntity>("somePath");
+
+        const addResult = fileStrategy.add({
+            id: "3",
+            testProperty: "someProperty",
         });
 
-        afterEach(() => {
-                readFileJsonSandbox.restore();
-                WriteFileSandbox.restore();
-        });
+        const result = fileStrategy.list();
 
-        it("constructor should read data file", () => {
-                new FileStrategy("somePath");
+        console.log(result);
+        const findAdded = result.find((entity) => entity.id == "3");
 
-                readFileJsonSandbox.assert.calledOnce(
-                        utils.readJsonFromFile as any
-                );
-        });
+        assert.equal(findAdded?.testProperty, "someProperty");
+        assert.isTrue(addResult);
 
-        it("should add entity", () => {
-                const fileStrategy = new FileStrategy<ITestEntity>("somePath");
+        readFileJsonSandbox.assert.calledOnce(utils.readJsonFromFile as any);
+        WriteFileSandbox.assert.calledOnce(utils.writeFile as any);
+    });
 
-                const addResult = fileStrategy.add({
-                        id: "3",
-                        testProperty: "someProperty",
-                });
+    it("should remove entity", () => {
+        const fileStrategy = new FileStrategy<ITestEntity>("somePath");
+        const result0 = fileStrategy.list();
+        assert.equal(result0.length, mockFileData.length);
 
-                const result = fileStrategy.list();
+        const result1 = fileStrategy.remove("1");
+        assert.isTrue(result1);
 
-                console.log(result);
-                const findAdded = result.find((entity) => entity.id == "3");
+        const result2 = fileStrategy.list();
 
-                assert.equal(findAdded?.testProperty, "someProperty");
-                assert.isTrue(addResult);
+        console.log("mockFileData after remove");
+        console.log(mockFileData);
+        assert.equal(
+            result2.length,
+            mockFileData.length - 1,
+            "mockData should be reduced by 1"
+        );
+        assert.isTrue(result1);
 
-                readFileJsonSandbox.assert.calledOnce(
-                        utils.readJsonFromFile as any
-                );
-                WriteFileSandbox.assert.calledOnce(utils.writeFile as any);
-        });
+        readFileJsonSandbox.assert.calledOnce(utils.readJsonFromFile as any);
+        WriteFileSandbox.assert.calledOnce(utils.writeFile as any);
+    });
 
-        it("should remove entity", () => {
-                const fileStrategy = new FileStrategy<ITestEntity>("somePath");
-                const result0 = fileStrategy.list();
-                assert.equal(result0.length, mockFileData.length);
+    it("should update entity", () => {
+        const fileStrategy = new FileStrategy<ITestEntity>("somePath");
 
-                const result1 = fileStrategy.remove("1");
-                assert.isTrue(result1);
+        const entityToUpdate: ITestEntity = {
+            id: "someId",
+            testProperty: "someTestUpdated",
+        };
+        const updateResponse = fileStrategy.update(entityToUpdate);
 
-                const result2 = fileStrategy.list();
+        const updated = fileStrategy.list();
 
-                console.log("mockFileData after remove");
-                console.log(mockFileData);
-                assert.equal(
-                        result2.length,
-                        mockFileData.length - 1,
-                        "mockData should be reduced by 1"
-                );
-                assert.isTrue(result1);
+        const rs = updated.find((entity) => entity.id == "someId");
 
-                readFileJsonSandbox.assert.calledOnce(
-                        utils.readJsonFromFile as any
-                );
-                WriteFileSandbox.assert.calledOnce(utils.writeFile as any);
-        });
+        assert.equal(
+            rs?.testProperty,
+            "someTestUpdated",
+            "updated value is not correct"
+        );
+        assert.equal(updateResponse, entityToUpdate);
+        readFileJsonSandbox.assert.calledOnce(utils.readJsonFromFile as any);
+        WriteFileSandbox.assert.calledOnce(utils.writeFile as any);
+    });
 
-        it("should update entity", () => {
-                const fileStrategy = new FileStrategy<ITestEntity>("somePath");
+    it("should retrieve all available entities", () => {
+        const fileStrategy = new FileStrategy<ITestEntity>("somePath");
 
-                const entityToUpdate: ITestEntity = {
-                        id: "someId",
-                        testProperty: "someTestUpdated",
-                };
-                const updateResponse = fileStrategy.update(entityToUpdate);
+        const list = fileStrategy.list();
 
-                const updated = fileStrategy.list();
+        assert.equal(
+            list.length,
+            mockFileData.length,
+            "returned items differ from actual items"
+        );
 
-                const rs = updated.find((entity) => entity.id == "someId");
-
-                assert.equal(
-                        rs?.testProperty,
-                        "someTestUpdated",
-                        "updated value is not correct"
-                );
-                assert.equal(updateResponse, entityToUpdate);
-                readFileJsonSandbox.assert.calledOnce(
-                        utils.readJsonFromFile as any
-                );
-                WriteFileSandbox.assert.calledOnce(utils.writeFile as any);
-        });
-
-        it("should retrieve all available entities", () => {
-                const fileStrategy = new FileStrategy<ITestEntity>("somePath");
-
-                const list = fileStrategy.list();
-
-                assert.equal(
-                        list.length,
-                        mockFileData.length,
-                        "returned items differ from actual items"
-                );
-
-                readFileJsonSandbox.assert.calledOnce(
-                        utils.readJsonFromFile as any
-                );
-        });
+        readFileJsonSandbox.assert.calledOnce(utils.readJsonFromFile as any);
+    });
 });
 
 describe("Negative tests: fileStrategy constructor tests", () => {
-        let readFileJsonSandbox = sinon.createSandbox();
-        beforeEach(() => {
-                readFileJsonSandbox.stub(utils, "readJsonFromFile").throws();
-        });
+    let readFileJsonSandbox = sinon.createSandbox();
+    beforeEach(() => {
+        readFileJsonSandbox.stub(utils, "readJsonFromFile").throws();
+    });
 
-        afterEach(() => {
-                readFileJsonSandbox.restore();
-        });
+    afterEach(() => {
+        readFileJsonSandbox.restore();
+    });
 
-        it("should throw when trying to read all available entities", () => {
-                assert.throws(() => {
-                        new FileStrategy<ITestEntity>("somePath");
-                });
+    it("should throw when trying to read all available entities", () => {
+        assert.throws(() => {
+            new FileStrategy<ITestEntity>("somePath");
         });
+    });
 });

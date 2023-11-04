@@ -6,17 +6,17 @@ import Repository from "./repository";
 export type UserEntityType = IUserEntity & IEntity;
 
 export class UsersRepository<
-        UserEntityType
+    UserEntityType
 > extends Repository<UserEntityType> {
-        constructor(strategy: IRepositoryStrategy<UserEntityType>) {
-                super(strategy);
-        }
+    constructor(strategy: IRepositoryStrategy<UserEntityType>) {
+        super(strategy);
+    }
 
-        public getUserList() {
-                return this.strategy.list();
-        }
+    public getUserList() {
+        return this.strategy.list();
+    }
 
-        public getUser(id: string) {
-                return this.strategy.get(id);
-        }
+    public getUser(id: string) {
+        return this.strategy.get(id);
+    }
 }
