@@ -11,7 +11,7 @@ import jwt from "jsonwebtoken";
  * @param next
  * @returns
  */
-const authorizationCallbackMiddleware = async (
+const authenticationCallbackMiddleware = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -39,7 +39,8 @@ const authorizationCallbackMiddleware = async (
         logger.info("sessionId was not present");
     }
 
-    logger.info("requesting for token");
+    logger.info('Exchange Code with Token');
+
     const token = await axios
         .post(
             `http://localhost:${config.dev.identity_server_port}/token?code=${authorizationCode}&redirect_uri=${redirectUri}`,
@@ -49,24 +50,13 @@ const authorizationCallbackMiddleware = async (
             }
         )
         .catch((err) => {
-            console.log(err);
+            logger.error(err);
         });
     logger.info(`TOKEN RESULT: ${token?.data}`);
 
-    var tokenVerified = jwt.verify(
-        token?.data,
-        config.dev.secrets.jwt_token_secret as jwt.Secret
-    );
-    logger.info("TOKEN VERIFY RESULT");
-    logger.info(`Token verify ${JSON.stringify(tokenVerified)}`);
-    res.cookie("sessionId", "someCookieValue", {
-        sameSite: "lax",
-    });
-    logger.info(
-        "successfully authenticated user.... redirecting to protected resource"
-    );
+    res.cookie("sessionId", token?.data);
 
     res.redirect(`http://localhost:3000/`);
 };
 
-export default authorizationCallbackMiddleware;
+export default authenticationCallbackMiddleware;

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authorizationMiddleware } from "../middlewares/authorizationMiddleware";
 import { protectedResourceMiddleware } from "../middlewares/protectedResourceMiddleware";
-import authorizationCallbackMiddleware from "../middlewares/authorizationCallbackMiddleware";
+import authorizationCallbackMiddleware from "../middlewares/authenticationCallbackMiddleware";
 
 const router = Router();
 
