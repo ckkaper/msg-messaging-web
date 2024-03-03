@@ -4,8 +4,8 @@ import { config } from "./config/config";
 import { Server } from "socket.io";
 import routes from "./routes/routes";
 import { BaDRequestApiError } from "./utils/apiError";
-import { logger } from "./config/logger";
-import errorHandler from "./middlewares/errorHandler";
+import { logger } from "./utils/logger";
+import errorMiddleware from "./middlewares/errorMiddleware";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -32,4 +32,4 @@ server.listen(config.dev.port, () => {
     );
 });
 
-app.use(errorHandler);
+app.use(errorMiddleware);

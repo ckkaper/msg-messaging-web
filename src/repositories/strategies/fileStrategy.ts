@@ -1,7 +1,7 @@
 import Entity from "../Entities/entity";
 import IRepositoryStrategy from "../interfaces/IRepositoryStrategy";
 import * as utils from "../utils/fileReaderWrapper";
-import { logger } from "../../config/logger";
+import { logger } from "../../utils/logger";
 import { InternalServerErrorApiError } from "../../utils/apiError";
 
 class FileStrategy<T extends Entity> implements IRepositoryStrategy<T> {

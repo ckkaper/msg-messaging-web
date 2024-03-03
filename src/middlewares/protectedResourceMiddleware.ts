@@ -1,4 +1,4 @@
-import { logger } from "../config/logger";
+import { logger } from "../utils/logger";
 import { Request, Response, NextFunction } from "express";
 
 export const protectedResourceMiddleware = (
@@ -6,6 +6,6 @@ export const protectedResourceMiddleware = (
     res: Response,
     next: NextFunction
 ) => {
-    logger.info("entered protected resource");
+    logger.info("ProtectedMiddleware: Entered protected resource");
     return res.send("protected resource accessed");
 };

@@ -4,11 +4,21 @@
 
 A skeleton microservice part of a bigger microservices platform aiming to seamlesly and easly generate new services focused on business logic.
 
--   What the project contains
--   How is structured
--   What does it do
--   What features it supports
--   name some of the design patterns used
+### Repository Logic
+
+Provide tha facing web microservice
+
+### Repository Features
+
+-   [Mockaroo](https://www.mockaroo.com/) in order to generate test data.
+-   [Typescript](https://www.typescriptlang.org/).
+-   [Nodemon](https://www.npmjs.com/package/nodemon) for interactive development during runtime.
+-   [Prettier](https://prettier.io/) combined with [eslint](https://eslint.org/) for static analysis and code format.
+-   [Mocha](https://mochajs.org/) [Chai](https://www.chaijs.com/) and [Sinon](https://sinonjs.org/) for UTs.
+-   [nyc](https://github.com/istanbuljs/nyc) source mapping for code coverage.
+-   [winston](https://github.com/winstonjs/winston) a feature rich customizable logger.
+-   [socket.io](https://socket.io/) for web socket communication.
+-   utilizes the repository pattern for the data layer.
 
 ## Prerequisites
 
@@ -44,34 +54,9 @@ Coverage report output: ./coverage/index.html
 ```
 docker build -t messaging-web .
 
-docker run -p 127.0.0.1:3000:3000 messaging-web
+docker run --name messaging-web -p 127.0.0.1:3000:3000 messaging-web
 ```
-
-## TODO: How to Use
-
-List how to use this specific repo.
-
--   How to add a new service
--   How to leverage the different design patterns ( repository, strategy )
--   How to use the config files
--   How to run docker
--   How to add the controller
-
-## Add used npm packages and technologies, also explain the benefits of each of them.
-
-[Nodemon](https://www.npmjs.com/package/nodemon) automatically restarts the application after changes inside the tracked files are detected during
-development.
-
-[dotenv](https://www.npmjs.com/package/dotenv) Easily read environmental variables from `.env` file.
-
-[mockaroo](https://www.mockaroo.com/) Generate mock data for a specified format.
-
-[chai](https://www.npmjs.com/package/chai) Easy to use and readable assertions for UTs.
-
-[mocha](https://www.npmjs.com/package/mocha) Provides basic test suite javascript functionality.
-
-[nyc](https://www.npmjs.com/package/nyc) Tool to generate coverage reports for Javascript/Typescript..
-
-[mocha](https://www.npmjs.com/package/mocha) Provides basic test suite javascript functionality.
-
-[winston](https://www.npmjs.com/package/winston) famous logging library providing json formated logs
+or use scripts: 
+```
+./build.ps1
+```

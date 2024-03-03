@@ -12,8 +12,10 @@ export const config = {
         },
         port: process.env.PORT,
         identity_server_port: process.env.IDENTITY_SERVER_PORT,
-        identity_server_container_hostname: process.env.IDENTITY_SERVER_CONTAINER_HOSTNAME,
-        identity_server_host_hostname: process.env.IDENTITY_SERVER_HOST_HOSTNAME,
+        identity_server_container_hostname:
+            process.env.IDENTITY_SERVER_CONTAINER_HOSTNAME,
+        identity_server_host_hostname:
+            process.env.IDENTITY_SERVER_HOST_HOSTNAME,
         application_name: process.env.APPLICATION_NAME,
         mock_data_path: resolve(
             __dirname,
