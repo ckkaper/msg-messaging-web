@@ -43,7 +43,7 @@ const authenticationCallbackMiddleware = async (
 
     const token = await axios
         .post(
-            `http://localhost:${config.dev.identity_server_port}/token?code=${authorizationCode}&redirect_uri=${redirectUri}`,
+            `http://${config.dev.identity_server_container_hostname}:${config.dev.identity_server_port}/token?code=${authorizationCode}&redirect_uri=${redirectUri}`,
             {
                 clientId: "OKg3URj8JWuYrgQDrk1QIzg==",
                 clientSecret: "PvAIUSQXgmmPjeyWKp7N2oX==",
@@ -56,7 +56,7 @@ const authenticationCallbackMiddleware = async (
 
     res.cookie("sessionId", token?.data);
 
-    res.redirect(`http://localhost:3000/`);
+    res.redirect(`http://localhost:${config.dev.port}/`);
 };
 
 export default authenticationCallbackMiddleware;

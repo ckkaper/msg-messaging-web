@@ -13,8 +13,7 @@ export const authorizationMiddleware = (
 
     const sessionId = req.cookies?.sessionId;
     if (req.cookies != null) {
-        console.log("SessionId");
-        console.log(JSON.stringify(req.cookies));
+        logger.info(JSON.stringify(req.cookies));
     }
 
     logger.info("checking if session is null");
@@ -23,7 +22,7 @@ export const authorizationMiddleware = (
         // TODO: validate session id against the identity server
         logger.info("redirecting to authorization server");
         const redirect =
-            `http://localhost:${config.dev.identity_server_port}/authorize?` +
+            `http://${config.dev.identity_server_host_hostname}:${config.dev.identity_server_port}/authorize?` +
             "response_type=code&" +
             "client_id=OKg3URj8JWuYrgQDrk1QIzg==&" +
             "scope=openid email&" +

@@ -42,9 +42,9 @@ Coverage report output: ./coverage/index.html
 ### Running inside a container
 
 ```
-docker build -t skeleton-svc .
+docker build -t messaging-web .
 
-docker run -p 127.0.0.1:3000:3000 skeleton-svc
+docker run -p 127.0.0.1:3000:3000 messaging-web
 ```
 
 ## TODO: How to Use
