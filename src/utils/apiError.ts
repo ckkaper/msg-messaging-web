@@ -1,4 +1,5 @@
 import { StatusCodes } from "http-status-codes";
+import { logger } from "./logger";
 
 export interface IApiError extends Error {
     statusCode: StatusCodes;
@@ -18,6 +19,8 @@ export class ApiError extends Error implements IApiError {
         this.statusCode = statusCode;
         this.isOperational = isOperational;
 
+        logger.error(message);
+
         if (stack) {
             this.stack = stack;
         } else {
@@ -26,7 +29,7 @@ export class ApiError extends Error implements IApiError {
     }
 }
 
-export class BaDRequestApiError extends ApiError {
+export class BadRequestApiError extends ApiError {
     constructor(message: string) {
         super(StatusCodes.BAD_REQUEST, message, true);
     }
