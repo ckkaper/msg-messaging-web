@@ -30,10 +30,10 @@ const authorizationCallbackMiddleware = async (
         return new BadRequestApiError("redirectUri was not provided")
     }
     
-    // TODO: investigate why this was removed.
-    if (sessionId == null) {
-        return new BadRequestApiError("SessionId was not present")
-    }
+    // // TODO: investigate why this was removed.
+    // if (sessionId == null) {
+    //     return new BadRequestApiError("SessionId was not present")
+    // }
 
     logger.info("AuthorizationCallbackMiddleware: Exchange code with token");
 
@@ -56,7 +56,9 @@ const authorizationCallbackMiddleware = async (
     // res.set("sessionId", token?.data);
     logger.info(`AuthorizationCallbackMiddleware: Redirecting to the Homepage: ${token?.data}`);
 
-    res.cookie('sessionId', token?.data).redirect(`http://localhost:${config.dev.port}/`);
+    console.log(token?.data);
+    res.cookie('sessionId', token?.data);
+    res.redirect(`http://localhost:${config.dev.port}/`);
 
 
     // res.redirect(`http://localhost:${config.dev.port}/`);
