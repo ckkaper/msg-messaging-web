@@ -56,7 +56,9 @@ docker build -t messaging-web .
 
 docker run --name messaging-web -p 127.0.0.1:3000:3000 messaging-web
 ```
-or use scripts: 
+
+or use scripts:
+
 ```
 ./build.ps1
 ```

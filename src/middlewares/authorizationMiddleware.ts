@@ -21,7 +21,9 @@ export const authorizationMiddleware = (
         // TODO: retrieve params clientId from config
         // TODO: validate session id against the identity server
 
-        logger.info("AuthorizationMiddelware: redirecting to authorization server");
+        logger.info(
+            "AuthorizationMiddelware: redirecting to authorization server"
+        );
 
         const redirectUri =
             `http://${config.dev.identity_server_host_hostname}:${config.dev.identity_server_port}/authorize?` +

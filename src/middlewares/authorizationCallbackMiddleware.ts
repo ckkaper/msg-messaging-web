@@ -23,13 +23,13 @@ const authorizationCallbackMiddleware = async (
     const sessionId = req.query.sessionId?.toString();
 
     if (authorizationCode == null) {
-        return new BadRequestApiError("Authorization code was not provided.")
+        return new BadRequestApiError("Authorization code was not provided.");
     }
 
     if (redirectUri == null) {
-        return new BadRequestApiError("redirectUri was not provided")
+        return new BadRequestApiError("redirectUri was not provided");
     }
-    
+
     // // TODO: investigate why this was removed.
     // if (sessionId == null) {
     //     return new BadRequestApiError("SessionId was not present")
@@ -47,19 +47,22 @@ const authorizationCallbackMiddleware = async (
             }
         )
         .catch((err) => {
-            logger.error('Failed to exchange authorization code with Id Token');
+            logger.error("Failed to exchange authorization code with Id Token");
             logger.error(err);
         });
 
-    logger.info(`AuthorizationCallbackMiddleware: Token Result: ${token?.data}`);
+    logger.info(
+        `AuthorizationCallbackMiddleware: Token Result: ${token?.data}`
+    );
 
     // res.set("sessionId", token?.data);
-    logger.info(`AuthorizationCallbackMiddleware: Redirecting to the Homepage: ${token?.data}`);
+    logger.info(
+        `AuthorizationCallbackMiddleware: Redirecting to the Homepage: ${token?.data}`
+    );
 
     console.log(token?.data);
-    res.cookie('sessionId', token?.data);
+    res.cookie("sessionId", token?.data);
     res.redirect(`http://localhost:${config.dev.port}/`);
-
 
     // res.redirect(`http://localhost:${config.dev.port}/`);
 };
