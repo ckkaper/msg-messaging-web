@@ -26,11 +26,11 @@ export const authorizationMiddleware = (
         );
 
         const redirectUri =
-            `http://${config.dev.identity_server_host_hostname}:${config.dev.identity_server_port}/authorize?` +
+            `http://${config.identity_server_host_hostname}:${config.identity_server_port}/authorize?` +
             "response_type=code&" +
             "client_id=OKg3URj8JWuYrgQDrk1QIzg==&" +
             "scope=openid email&" +
-            `redirect_uri=http://localhost:${config.dev.port}`;
+            `redirect_uri=http://localhost:${config.port}`;
         return res.redirect(redirectUri);
     }
 

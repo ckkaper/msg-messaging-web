@@ -6,7 +6,8 @@
     "scripts": {
         "test": "mocha -r ts-node/register ./test/src/**/**/*.spec.ts",
         "test:coverage": "nyc mocha -r ts-node/register ./test/src/**/**/*.spec.ts",
-        "build": "tsc --project ./ && cp ./src/repositories/mock_data.json ./dist/src/repositories",
+        "build": "tsc --project ./ && cp -p ./src/repositories/mock_data.json ./dist/src/repositories",
+        "build:quick": "tsc --project ./",
         "start": "npx tsc --project ./ && node  ./dist/src/app.js",
         "start:ts": "ts-node ./src/app.ts",
         "start:nodemon": "nodemon ./src/app.ts",

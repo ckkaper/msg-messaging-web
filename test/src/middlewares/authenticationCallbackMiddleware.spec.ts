@@ -28,12 +28,15 @@ describe("AuthorizationCallbackMiddleware tests", () => {
         } as Request;
         const res = {
             redirect: sinon.spy(),
+            cookie: () => {
+                console.log("noop");
+            },
             set: () => {
                 console.log("noop");
             },
         } as any;
 
-        const resSetSpy = sinon.spy(res, "set");
+        const resSetSpy = sinon.spy(res, "cookie");
         // Act
         await authorizationCallbackMiddleware(req, res, nextSpy);
 

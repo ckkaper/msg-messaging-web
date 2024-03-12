@@ -11,7 +11,7 @@ describe("AuthorizationMiddleware tests", () => {
             cookies: {
                 sessionId: "Something",
             },
-        } as Request;
+        }  as unknown as Request;
         const res = {
             redirect: sinon.spy(),
         } as any;
@@ -34,7 +34,7 @@ describe("AuthorizationMiddleware tests", () => {
             cookies: {
                 sessionId: "Something",
             },
-        } as Request;
+        } as unknown as Request;
         const res = {
             redirect: sinon.spy(),
         } as any;

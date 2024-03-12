@@ -25,10 +25,10 @@ io.on("connection", (socket) => {
     console.log("a user connected");
 });
 
-server.listen(config.dev.port, () => {
+server.listen(config.port, () => {
     logger.log(
         "info",
-        `${config.dev.application_name} listening on port ${config.dev.port}`
+        `${config.application_name} listening on port ${config.port}`
     );
 });
 
